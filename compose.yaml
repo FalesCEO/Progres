@@ -1,0 +1,23 @@
+services:
+  fales:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - fales-data:/data
+    environment:
+      FALES_ALLOWED_ORIGINS: ${FALES_ALLOWED_ORIGINS:-}
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m
+    init: true
+    restart: unless-stopped
+    mem_limit: 768m
+    cpus: 2
+    pids_limit: 128
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+volumes:
+  fales-data:
